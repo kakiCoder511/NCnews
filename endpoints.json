@@ -10,7 +10,7 @@
     }
   },
   "GET /api/articles": {
-    "description": "serves an array of all articles",
+    "description": "serves an array of all articles withcomment count || sort by created_at in descending order",
     "exampleResponse": {
       "articles": [
         {
@@ -23,5 +23,20 @@
         }
       ]
     }
+   },
+  "GET /api/articles/:article_id":{
+   "description":"serves an object by article_id",
+  "exampleResponse": {
+    "article": {
+      "article_id": 1,
+      "title": "Seafood substitutions are increasing",
+      "topic": "cooking",
+      "author": "weegembump",
+      "body": "Text content here...",
+      "created_at": "2018-05-30T15:59:13.341Z",
+      "votes": 0,
+      "article_img_url": "https://images.com/seafood.jpg"
+    }
   }
+   }
 }
