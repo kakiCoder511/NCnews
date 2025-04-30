@@ -1,6 +1,9 @@
 const db = require("../connection");
 const format = require("pg-format");
-const { convertTimestampToDate,  createArticlesLookupObj } = require("../seeds/utils");
+const {
+  convertTimestampToDate,
+  createArticlesLookupObj,
+} = require("../seeds/utils");
 
 const seed = ({ topicData, userData, articleData, commentData }) => {
   return db
@@ -20,7 +23,7 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
         slug VARCHAR(100) PRIMARY KEY,
         description VARCHAR(1000) NOT NULL,
         img_url VARCHAR(1000) NOT NULL)
-        `)
+        `);
     })
     .then(() => {
       return db.query(`
@@ -103,6 +106,12 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
       const articlesLookup = createArticlesLookupObj(result.rows);
       const formattedComments = commentData.map((comment) => {
         const legitComment = convertTimestampToDate(comment);
+        // console.log(
+        //   "legitComment.article_title:",
+        //   legitComment.article_title
+        // );
+        // console.log("articlesLookup keys:", Object.keys(articlesLookup));
+
         return [
           articlesLookup[legitComment.article_title],
           legitComment.body,
@@ -111,7 +120,11 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
           legitComment.created_at,
         ];
       });
-      console.log(formattedComments)
+      const undefinedComments = formattedComments.filter(
+        (comment) => comment[0] === undefined
+      );
+
+      //console.log(formattedComments)
       const insertCommentsQuery = format(
         `INSERT INTO comments (article_id, body, votes, author, created_at)
            VALUES %L RETURNING *`,
