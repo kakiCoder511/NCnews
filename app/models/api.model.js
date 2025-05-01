@@ -11,16 +11,20 @@ exports.fetchTopics = () => {
   });
 };
 
-exports.fetchArticleByID =(article_id) =>{
-  return db.query(`SELECT * FROM articles 
-    WHERE article_id = $1 `,[article_id]
-     ).then((result)=>{
-    console.log("result.rows>>",result.rows)
-    return result.rows[0]
-  })
-}
+exports.fetchArticleByID = (article_id) => {
+  return db
+    .query(
+      `SELECT * FROM articles 
+    WHERE article_id = $1 `,
+      [article_id]
+    )
+    .then((result) => {
+      console.log("result.rows>>", result.rows);
+      return result.rows[0];
+    });
+};
 
-exports.fetchArticles = ()=>{
+exports.fetchArticles = () => {
   return db.query(`
   SELECT 
   articles.author,
@@ -36,7 +40,9 @@ exports.fetchArticles = ()=>{
   ON comments.article_id = articles.article_id
 GROUP BY articles.article_id
 ORDER BY articles.created_at DESC;
-`).then((result) => {
-return result.rows;
-});
-}
+`
+    )
+    .then((result) => {
+      return result.rows;
+    });
+};

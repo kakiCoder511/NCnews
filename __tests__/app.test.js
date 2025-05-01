@@ -4,6 +4,8 @@ const request = require("supertest");
 const app = require("../app");
 const testData = require("../db/data/test-data");
 const seed = require("../db/seeds/seed");
+const { toBeSortedBy } = require("jest-sorted");
+
 /* Set up your beforeEach & afterAll functions here */
 beforeEach(() => {
   return seed(testData);
@@ -20,7 +22,7 @@ describe("GET /api", () => {
       .then((response) => {
         const body = response.body;
         const endpoints = body.endpoints;
-       //console.log("🤩endpoints?",endpoints);
+        //console.log("🤩endpoints?",endpoints);
         expect(endpoints).toEqual(endpointsJson);
       });
     //.then(({ body: { endpoints } }) => {
@@ -86,7 +88,7 @@ describe("/api/articles/:article_id", () => {
   });
   test("404: responds not found for non-exist article_id", () => {
     return request(app)
-      .get("/api/articles/9999") 
+      .get("/api/articles/9999")
       .expect(404)
       .then(({ body }) => {
         expect(body.msg).toBe("Article not found");
@@ -119,7 +121,7 @@ describe("GET /api/articles", () => {
               title: expect.any(String),
               article_id: expect.any(Number),
               topic: expect.any(String),
-              created_at: expect.any(String), 
+              created_at: expect.any(String),
               votes: expect.any(Number),
               article_img_url: expect.any(String),
               comment_count: expect.any(Number),
@@ -137,4 +139,106 @@ describe("GET /api/articles", () => {
         expect(body.msg).toBe("Path not found");
       });
   });
+});
+
+describe("/api/articles/:article_id/comments", () => {
+  test("200: responds with all comments for an article", () => {
+    return request(app)
+      .get("/api/articles/1/comments")
+      .expect(200)
+      .then(({ body: { comments } }) => {
+        console.log("comments>>>", comments);
+        expect(Array.isArray(comments)).toBe(true);
+        expect(comments.length).toBeGreaterThan(0);
+        expect(comments).toBeSortedBy("created_at", { descending: true });
+        comments.forEach((comment) => {
+          expect(comment).toEqual(
+            expect.objectContaining({
+              comment_id: expect.any(Number),
+              votes: expect.any(Number),
+              created_at: expect.any(String),
+              author: expect.any(String),
+              body: expect.any(String),
+              article_id: expect.any(Number),
+            })
+          );
+        });
+      });
+  });
+
+  test("400: responds with bad request for invalid article_id", () => {
+    return request(app)
+      .get("/api/articles/not-a-number/comments")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+  test("404: responds not found for non-exist article_id", () => {
+    return request(app)
+      .get("/api/articles/9999/comments")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Article not found");
+      });
+  });
+  test("201:responds with posted comments ", () => {
+    const insertedComment = {
+      username: "butter_bridge",
+      body: "testing the comment data insertion",
+    };
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send(insertedComment)
+      .expect(201)
+      .then(({ body: { comment } }) => {
+        expect(comment).toEqual(
+          expect.objectContaining({
+            comment_id: expect.any(Number),
+            author: "butter_bridge",
+            body: "testing the comment data insertion",
+            article_id: 1,
+            votes: 0,
+            created_at: expect.any(String),
+          })
+        );
+      });
+  });
+  test("400:responds bad request when body is missing", () => {
+    const missingComment = {
+      username: "butter_bridge",
+    };
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send(missingComment)
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+  test("400:responds bad request when username is missing", () => {
+    const missingComment = {
+      body: "testing the comment data insertion",
+    };
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send(missingComment)
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+  test("404: responds  with not found if username doesnot exists",()=>{
+    const fakeUser = {
+      username: "Kaki",
+    body: "I am real but not in DB"
+    }
+    return request(app)
+    .post("/api/articles/1/comments")
+    .send(fakeUser)
+    .expect(404)
+    .then(({body})=>{
+      expect(body.msg).toBe("User not found")
+    })
+  })
 });
