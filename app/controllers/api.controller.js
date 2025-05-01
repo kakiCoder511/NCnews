@@ -35,3 +35,4 @@ exports.getArticles =(req,res,next)=>{
   })
   .catch(next)
 }
+
