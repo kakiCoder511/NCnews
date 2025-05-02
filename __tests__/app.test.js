@@ -143,7 +143,6 @@ describe("/api/articles/:article_id/comments", () => {
     .get("/api/articles/2/comments")
     .expect(200)
     .then(({ body: { comments } }) => {
-      console.log("id2 comments >>>", comments);
       expect(comments.length).toBe(0);
     });
   });
