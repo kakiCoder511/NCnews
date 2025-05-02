@@ -4,9 +4,12 @@ app.use(express.json());
 const {
   getApi,
   getTopics,
+} = require("./app/controllers/api.controller");
+const {
   getArticleByID,
   getArticles,
-} = require("./app/controllers/api.controller");
+  patchArticleVotes
+} = require("./app/controllers/articles.controllers");
 const {
   getComments,
   postComments,
@@ -23,6 +26,8 @@ app.get("/api/articles", getArticles);
 app.get("/api/articles/:article_id/comments", getComments);
 
 app.post("/api/articles/:article_id/comments", postComments);
+
+app.patch("/api/articles/:article_id", patchArticleVotes)
 
 app.all("/*splat", (req, res) => {
   res.status(404).send({ msg: "Path not found" });
