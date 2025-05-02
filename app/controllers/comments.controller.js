@@ -8,10 +8,6 @@ exports.getComments = (req, res, next) => {
 
   fetchCommentsByArticleId(article_id)
     .then((comments) => {
-      //console.log("📖comments",comments)
-      if (comments.length === 0) {
-        return Promise.reject({ status: 404, msg: "Article not found" });
-      }
       res.status(200).send({ comments });
     })
     .catch(next);
