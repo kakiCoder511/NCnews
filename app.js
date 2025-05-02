@@ -20,7 +20,7 @@ app.get("/api/articles/:article_id", getArticleByID);
 
 app.get("/api/articles", getArticles);
 
-app.get("/api/articles/:article_id/comments", getComments);
+app.get("/api/articles/:article_id/comments", ge tComments);
 
 app.post("/api/articles/:article_id/comments", postComments);
 

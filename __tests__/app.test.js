@@ -233,3 +233,7 @@ describe("💥404 error💥for all wrong path", () => {
       });
   });
 });
+
+describe("PATCH /api/articles/:article_id",() =>{
+  test("")
+})
