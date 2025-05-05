@@ -283,6 +283,52 @@ describe("PATCH /api/articles/:article_id", () => {
   });
 });
 
+describe("DELETE /api/comments/:comment_id",()=>{
+  test("204: successfully deletes a comment", ()=>{
+    return request(app)
+    .delete("/api/comments/1")
+    .expect(204)
+    .then(({body})=>{
+      expect(body).toEqual({})
+    })
+  })
+  test("400: responds with bad request if comment ID is not a number",()=>{
+    return request(app)
+    .delete("/api/comments/not-a-number")
+    .expect(400)
+    .then(({body})=>{
+      expect(body.msg).toBe("Bad Request")
+    })
+  })
+  test("404: responds with comment not found for non-exist comment ID", ()=>{
+    return request(app)
+    .delete("/api/comments/9999")
+    .expect(404)
+    .then(({body})=>{
+      expect(body.msg).toBe("Comment not found")
+    })
+  })
+})
+
+describe("GET /api/users",()=>{
+  test("200: responds with users with an array of users",()=>{
+    return request(app)
+    .get("/api/users")
+    .expect(200)
+    .then(({body:{users}})=>{
+      expect(users).toHaveLength(4)
+      users.forEach((user)=>{
+        expect(user).toEqual(
+        expect.objectContaining({
+          username: expect.any(String),
+          name: expect.any(String),
+          avatar_url: expect.any(String)
+        }))
+      })
+    })
+  })
+  
+})
 
 describe("💥404 error💥for all wrong path", () => {
   test("404: responds with not found when given wrong path", () => {
