@@ -35,7 +35,8 @@
         "body": "Text content here...",
         "created_at": "2018-05-30T15:59:13.341Z",
         "votes": 0,
-        "article_img_url": "https://images.com/seafood.jpg"
+        "article_img_url": "https://images.com/seafood.jpg",
+        "comment_count": "11"
       }
     }
   },
@@ -85,7 +86,8 @@
         "body": "Text content here...",
         "created_at": "2018-05-30T15:59:13.341Z",
         "votes": 101,
-        "article_img_url": "https://images.com/seafood.jpg"
+        "article_img_url": "https://images.com/seafood.jpg",
+        "comment_count": "11"
       }
     }
   },
@@ -107,7 +109,21 @@
       ]
     }
   },
-  "GET /api/articles (sorting queries)": {
-    "description": ""
+  "GET /api/articles (sorting & filtering queries)": {
+    "description": "Serves an array of articles. Accepts optional query parameters to sort or filter results. 'sort_by' allows sorting by any valid column (e.g., 'votes', 'created_at'), 'order' can be 'asc' or 'desc', and 'topic' filters by topic slug.",
+    "queries": ["sort_by", "order", "topic"],
+    "exampleRequest": "/api/articles?sort_by=votes&order=asc&topic=cooking",
+    "exampleResponse": {
+      "articles": [
+        {
+          "title": "Seafood substitutions are increasing",
+          "topic": "cooking",
+          "author": "weegembump",
+          "created_at": "2018-05-30T15:59:13.341Z",
+          "votes": 0,
+          "comment_count": 6
+        }
+      ]
+    }
   }
 }
