@@ -45,3 +45,17 @@ exports.insertCommentByArticleId = (article_id, username, body)=>{
         return result.rows[0]
     })
 }
+
+exports.deleteCommentById = (comment_id) => {
+    const removeComment =
+    `
+    DELETE FROM comments
+    WHERE comment_id =$1
+    RETURNING *;
+    `
+    return db.query(removeComment,[comment_id])
+    .then((result)=>{
+        return result.rows[0]
+    }
+    )
+}
