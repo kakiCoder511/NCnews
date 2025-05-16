@@ -178,7 +178,7 @@ describe("GET /api/articles", () => {
   });
 });
 
-describe("/api/articles/:article_id/comments", () => {
+describe("GET /api/articles/:article_id/comments", () => {
   test("200: responds with all comments for an article", () => {
     return request(app)
       .get("/api/articles/1/comments")

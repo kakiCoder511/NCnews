@@ -1,6 +1,6 @@
 # Possible Errors
 
-This is an _**incomplete**_ guide to the possible errors that may happen in your app. We have left some of them blank to prompt you to think about the errors that could occur as a client uses each endpoint that you have created.
+This is a guide to the possible errors that may happen in your app. We have left some of them blank to prompt you to think about the errors that could occur as a client uses each endpoint that you have created.
 
 Think about what could go wrong for each route, and the HTTP status code should be sent to the client in each case.
 For each thing that could go wrong, make a test with your expected status code and then make sure that possibility is handled.
@@ -33,7 +33,8 @@ The following is _not_ a comprehensive list! Its purpose is just to get the ball
 
 ### GET `/not-a-route`
 
-- Status: ???
+- Status: 404
+- Response : { msg: "Path not found" }
 
 ---
 
@@ -68,8 +69,11 @@ The following is _not_ a comprehensive list! Its purpose is just to get the ball
 
 ### PATCH `/api/comments/:comment_id`
 
-- ???
+???
 
 ### DELETE `/api/comments/:comment_id`
 
-- ???
+- Invalid comment_id (e.g. /dog)
+- Status: 400 Bad Request
+- Comment does not exist
+- Status: 404 Comment not found
