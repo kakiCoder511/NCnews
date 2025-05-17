@@ -9,6 +9,8 @@ exports.getApi = (req, res, next) => {
 };
 
 exports.getTopics = (req, res, next) => {
+  console.log("🐝GET /api/topics called");
+  
   fetchTopics()
     .then((topics) => {
       res.status(200).send({ topics });
