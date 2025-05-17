@@ -53,11 +53,11 @@ The following is _not_ a comprehensive list! Its purpose is just to get the ball
 
 ### POST `/api/articles/:article_id/comments`
 
-- ???
+- Ongoing development
 
 ### GET `/api/articles/:article_id/comments`
 
-- ???
+- Ongoing development
 
 ### GET `/api/articles`
 
@@ -69,7 +69,7 @@ The following is _not_ a comprehensive list! Its purpose is just to get the ball
 
 ### PATCH `/api/comments/:comment_id`
 
-???
+- Ongoing development
 
 ### DELETE `/api/comments/:comment_id`
 
