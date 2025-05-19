@@ -1,4 +1,4 @@
-const app = require("./app"); // app.js 係 Express app
+const app = require("./app");
 
 const { PORT = 9090 } = process.env;
 

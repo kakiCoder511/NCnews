@@ -88,6 +88,7 @@ npm test
 | Method | Endpoint                             | Description                                                                            |
 | ------ | ------------------------------------ | -------------------------------------------------------------------------------------- |
 | GET    | /api                                 | List of all available endpoints                                                        |
+| GET    | /api/topics                          | List of topics                                                                         |
 | GET    | /api/articles                        | Returns all articles with comment counts. Supports `sort_by`, `order`, `topic` queries |
 | GET    | /api/articles/\:article\_id          | Returns a single article including comment count                                       |
 | PATCH  | /api/articles/\:article\_id          | Updates an article’s vote count                                                        |
