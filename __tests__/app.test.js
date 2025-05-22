@@ -6,7 +6,6 @@ const testData = require("../db/data/test-data");
 const seed = require("../db/seeds/seed");
 const { toBeSortedBy } = require("jest-sorted");
 
-
 /* Set up your beforeEach & afterAll functions here */
 beforeEach(() => {
   return seed(testData);
@@ -63,6 +62,8 @@ describe("/api/articles/:article_id", () => {
           created_at: "2020-07-09T20:11:00.000Z",
           article_img_url:
             "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
+          votes: 100,
+
           comment_count: "11",
         });
       });

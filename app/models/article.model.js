@@ -10,6 +10,7 @@ exports.fetchArticleByID = (article_id) => {
       articles.author,
       articles.created_at,
       articles.article_img_url,
+      articles.votes,
       (
       SELECT COUNT(*)
       FROM comments
