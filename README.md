@@ -122,6 +122,5 @@ npm test
 
 ---
 
-Feel free to fork, clone, and test the API. This was built with learning in mind — so I’m always open to feedback or suggestions!
 
 Thanks for checking it out! 🌟
