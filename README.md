@@ -16,7 +16,6 @@ This API mimics a Reddit-style article discussion platform. It lets you:
 📂 [View this repo on GitHub](https://github.com/kakiCoder511/NCnews)
 
 ---
-
 ## Project Overview
 
 This project demonstrates backend skills including:
